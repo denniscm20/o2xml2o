@@ -21,26 +21,24 @@ along with o2xml2o.  If not, see <http://www.gnu.org/licenses/>.
  **************************************************************************/
 
 /**
- * @author Dennis Cohn Muroy <dennis.cohn@pucp.edu.pe>
- * @copyright Copyright (c) 2009, Dennis Cohn Muroy
- * @version 0.5
- * @license http://opensource.org/licenses/gpl-3.0.html GNU Public License 3
- */
-
-/**
- * @abstract
  * This class allows any child class to be exported into an XML structure or
  * allows it to import its attributes' values from a previously exported
  * XML file.
  * This class is the XML bridge for your objects!!!
+ * @author Dennis Cohn Muroy <dennis.cohn@pucp.edu.pe>
+ * @copyright Copyright (c) 2009, Dennis Cohn Muroy
+ * @version 0.5
+ * @license http://opensource.org/licenses/gpl-3.0.html GNU Public License 3
+ * @package o2xml2o
+ * @abstract
  */
 abstract class XMLbridge
 {
     /**
+     * Converts an object into a XML Structure
      * @author Dennis Cohn Muroy
      * @access private
      * @final
-     * Converts an object into a XML Structure
      * @param Object $value Object to be converted to an XML structure
      */
     private function objectXML($value)
@@ -54,9 +52,9 @@ abstract class XMLbridge
     }
 
     /**
+     * Writes the value of a XML node.
      * @author Dennis Cohn Muroy
      * @access private
-     * Writes the value of a XML node.
      * @param Object $value Value to be displayed in a XML node
      */
     private function valueXML($value)
@@ -65,9 +63,9 @@ abstract class XMLbridge
     }
 
     /**
+     * Converts a list of attributes with is assigned values into XML nodes
      * @author Dennis Cohn Muroy
      * @access private
-     * Converts a list of attributes with is assigned values into XML nodes
      * @param mixed $elements List of attributes with its assigned values
      */
     private function arrayXML($elements)
@@ -93,11 +91,11 @@ abstract class XMLbridge
     }
 
     /**
+     * This is the method that must be called in order to convert a child object
+     * into an XML structure.
      * @author Dennis Cohn Muroy
      * @access public
      * @final
-     * This is the method that must be called in order to convert a child object
-     * into an XML structure.
      * @param bool $writeHeader Indicates if the xml header must be written.
      */
     public final function writeXML($writeHeader = true)
@@ -114,9 +112,9 @@ abstract class XMLbridge
     }
 
     /**
+     * This function loads values of the node into an array.
      * @author Dennis Cohn Muroy
      * @access private
-     * This function loads values of the node into an array.
      * @param SimpleXMLElement $node Node of the XML Structure
      * @return array
      */
@@ -141,10 +139,10 @@ abstract class XMLbridge
     }
 
     /**
+     * This function loads values of the node into the object's attributes.
      * @author Dennis Cohn Muroy
      * @access public
      * @final
-     * This function loads values of the node into the object's attributes.
      * @param SimpleXMLElement $node Node of the XML Structure
      */
     public final function readStructure($node)
@@ -162,11 +160,11 @@ abstract class XMLbridge
     }
 
     /**
+     * This is the method that must be called in order to convert an XML
+     * structure into an object.
      * @author Dennis Cohn Muroy
      * @access public
      * @final
-     * This is the method that must be called in order to convert an XML
-     * structure into an object.
      * @param string $file File or url that contains to the XML Structure.
      */
     public final function readXML($file)
