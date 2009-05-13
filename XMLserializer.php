@@ -1,7 +1,7 @@
 <?php
 
 /************************************************************************
-        XMLbridge - Copyright 2009 Dennis Cohn Muroy
+        XMLserializer - Copyright 2009 Dennis Cohn Muroy
 
 This file is part of o2xml2o.
 
@@ -24,7 +24,7 @@ along with o2xml2o.  If not, see <http://www.gnu.org/licenses/>.
  * This class allows any child class to be exported into an XML structure or
  * allows it to import its attributes' values from a previously exported
  * XML file.
- * This class is the XML bridge for your objects!!!
+ * This class is the XML (un)serializer for your objects!!!
  * @author Dennis Cohn Muroy <dennis.cohn@pucp.edu.pe>
  * @copyright Copyright (c) 2009, Dennis Cohn Muroy
  * @version 0.5
@@ -32,7 +32,7 @@ along with o2xml2o.  If not, see <http://www.gnu.org/licenses/>.
  * @package o2xml2o
  * @abstract
  */
-abstract class XMLbridge
+abstract class XMLserializer
 {
     /**
      * Converts an object into a XML Structure
@@ -81,10 +81,11 @@ abstract class XMLbridge
                 $type = "Value";
                 $class = gettype($value);
             }
-            print "<element name=\"{$key}\" type=\"{$type}\" class=\"{$class}\">\n";
+            $keyTag = is_numeric($key)?"index_".$key:$key;
+            print "<{$keyTag} type=\"{$type}\" class=\"{$class}\">\n";
             $type = $type."XML";
             $this->{$type}($value);
-            print "</element>";
+            print "</{$keyTag}>";
         }
     }
 
@@ -101,11 +102,12 @@ abstract class XMLbridge
         $attributes = get_object_vars($this);
         if ($writeHeader) {
             header ("content-type: text/xml");
-            print ("<elements>\n");
+            $objectName = get_class($this);
+            print ("<{$objectName}>\n");
         }
         $this->arrayXML($attributes);
         if ($writeHeader) {
-            print ("</elements>");
+            print ("</{$objectName}>");
         }
     }
 
@@ -122,7 +124,8 @@ abstract class XMLbridge
         foreach ($node->children() as $element) {
             $attributes = $element->attributes();
             $type = $attributes['type'];
-            $name = $attributes['name'];
+            $name = $element->getName();
+            $name = str_replace("index_","",$name);
             $class = (string)$attributes['class'];
             switch ($type) {
                 case "Object":  $object = new $class();
@@ -130,7 +133,7 @@ abstract class XMLbridge
                                 $innerArray["{$name}"] = $object;
                                 break;
                 case "Array":   $innerArray["{$name}"] = $this->getArrayStructure($element); break;
-                case "Value":   $innerArray["{$name}"] = (string)$element; break;
+                case "Value":   $innerArray["{$name}"] = trim((string)$element); break;
             }
         }
         return $innerArray;
@@ -148,11 +151,11 @@ abstract class XMLbridge
         foreach ($node->children() as $element) {
             $attributes = $element->attributes();
             $type = $attributes['type'];
-            $name = $attributes['name'];
+            $name = $element->getName();
             switch ($type) {
                 case "Object": $this->{$name}->readStructure($element); break;
                 case "Array": $this->{$name} = $this->getArrayStructure($element); break;
-                case "Value": $this->{$name} = (string)$element; break;
+                case "Value": $this->{$name} = trim((string)$element); break;
             }
         }
     }

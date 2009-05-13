@@ -1,7 +1,7 @@
 <?php
 
 /************************************************************************
-        sample.php - Copyright 2009 Dennis Cohn Muroy
+        sample2.php - Copyright 2009 Dennis Cohn Muroy
 
 This file is part of o2xml2o.
 
@@ -20,9 +20,9 @@ along with o2xml2o.  If not, see <http://www.gnu.org/licenses/>.
 
  **************************************************************************/
 
-require_once('XMLbridge.php');
+require_once('XMLserializer.php');
 
-class InnerObject extends XMLbridge
+class InnerObject extends XMLserializer
 {
     protected $_id;
     protected $_name;
@@ -49,7 +49,7 @@ class InnerObject extends XMLbridge
     }
 }
 
-class MainObject extends XMLbridge
+class MainObject extends XMLserializer
 {
     protected $_id;
     protected $_name;
@@ -88,15 +88,30 @@ if (isset($_GET["write"])) {
     $xml->writeXML();
 } else {
     $xml = new MainObject();
-    echo "o2xml2o XMLbridge sample file:<br /><br />";
+    echo "o2xml2o XMLserializer sample file:<br /><br />";
     echo "New Object:<br />";
     var_dump($xml);
     $path = $_SERVER['PHP_SELF'];
     $xml->readXML("http://localhost{$path}?write");
     echo "<br /> <br />";
-    echo "Loaded Object:<br />";
+    ?>
+    <div style="float:left; width:49%;">
+    Loaded Object:<br />
+    <pre>
+    <?php
     var_dump($xml);
+    ?>
+    </pre>
+    </div>
+    <div style="float:right; width:49%;">
+    Expected Object:<br />
+    <pre>
+    <?php
+    $xml = new MainObject();
+    $xml->loadSampleData();
+    var_dump($xml);
+    ?>
+    </pre>
+    </div>
+    <?php
 }
-?>
-
-
