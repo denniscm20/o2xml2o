@@ -1,7 +1,7 @@
 <?php
 
 /************************************************************************
-        sample2.php - Copyright 2009 Dennis Cohn Muroy
+        XML_Sample.php - Copyright 2009 Dennis Cohn Muroy
 
 This file is part of o2xml2o.
 
@@ -20,7 +20,7 @@ along with o2xml2o.  If not, see <http://www.gnu.org/licenses/>.
 
  **************************************************************************/
 
-require_once('XMLserializer.php');
+require_once('o2xml2o/XMLserializer.php');
 
 class InnerObject extends XMLserializer
 {

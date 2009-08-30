@@ -21,7 +21,8 @@ along with o2xml2o.  If not, see <http://www.gnu.org/licenses/>.
 ***************************************************************************/
 
 /**
- * Class Description
+ * This class contains the base methods for performing the serialization /
+ * unserialization of an object.
  * @author Dennis Cohn Muroy <dennis.cohn@pucp.edu.pe>
  * @copyright Copyright (c) 2009, Dennis Cohn Muroy
  * @version 0.3
@@ -32,6 +33,12 @@ along with o2xml2o.  If not, see <http://www.gnu.org/licenses/>.
  */
 abstract class Serializer
 {
+
+    const SERIALIZER_OBJECT = "Object";
+
+    const SERIALIZER_ARRAY = "Array";
+
+    const SERIALIZER_VALUE = "Value";
 
     /**
      * This is the method that must be called in order to convert this object
@@ -100,11 +107,11 @@ abstract class Serializer
     protected final function getType ($value)
     {
         if (is_object($value)) {
-            return "Object";
+            return self::SERIALIZER_OBJECT;
         } else if (is_array($value)) {
-            return "Array";
+            return self::SERIALIZER_ARRAY;
         } else {
-            return "Value";
+            return self::SERIALIZER_VALUE;
         }
     }
 
@@ -136,9 +143,11 @@ abstract class Serializer
      */
     protected final function writeArray($elements)
     {
+        // TODO: Validate if last element of an array
         foreach($elements as $key => $value) {
             $type = $this->getType($value);
             $class = $this->getDataType($value);
+            // TODO: Validate if inside an array
             $this->writeNodeStart($key, $type, $class);
             $action = "write".$type;
             $this->{$action}($value);
@@ -171,7 +180,7 @@ abstract class Serializer
      * @param String $type
      * @param String $class
      */
-    protected abstract function writeNodeStart($key, $type, $class);
+    protected abstract function writeNodeStart($key, $type = "", $class = "");
 
     /**
      * Writes the close string after the node content is writen
@@ -182,7 +191,7 @@ abstract class Serializer
      * @param String $type
      * @param String $class
      */
-    protected abstract function writeNodeEnd($key, $type, $class);
+    protected abstract function writeNodeEnd($key, $type = "", $class = "");
 
     /**
      * Loads any PHP module that is necessary for the unserialization process.
