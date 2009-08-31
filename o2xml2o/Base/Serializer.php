@@ -144,9 +144,12 @@ abstract class Serializer
     protected final function writeArray($elements)
     {
         // TODO: Validate if last element of an array
+        $totalElements = count($elements);
+        $currentItem = 0;
         foreach($elements as $key => $value) {
             $type = $this->getType($value);
             $class = $this->getDataType($value);
+            $lastElement = ++$currentItem == $totalElements;
             // TODO: Validate if inside an array
             $this->writeNodeStart($key, $type, $class);
             $action = "write".$type;
