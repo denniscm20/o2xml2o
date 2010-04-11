@@ -27,7 +27,7 @@ along with o2xml2o.  If not, see <http://www.gnu.org/licenses/>.
  * This class is the XML bridge for your objects!!!
  * @author Dennis Cohn Muroy
  * @copyright Copyright (c) 2009, Dennis Cohn Muroy
- * @version 0.8
+ * @version 0.9
  * @license http://opensource.org/licenses/gpl-3.0.html GNU Public License 3
  * @package o2xml2o
  * @abstract
@@ -107,6 +107,20 @@ abstract class XMLbridge
         $this->printObject($this, "");
     }
 
+    private function readElement($element, $type, $class)
+    {
+        switch ($type) {
+            case "Object":
+                $object = new $class();
+                $object->readStructure($element);
+                return $object;
+            case "Array":
+                return $this->readArrayStructure($element);
+            case "Value":
+                return (string)trim($element);
+        }
+    }
+
     /**
      * This function loads values of the node into an array.
      * @author Dennis Cohn Muroy
@@ -114,7 +128,7 @@ abstract class XMLbridge
      * @param SimpleXMLElement $node Node of the XML Structure
      * @return array
      */
-    private function getArrayStructure($node)
+    private function readArrayStructure($node)
     {
         $innerArray = array();
         foreach ($node->children() as $element) {
@@ -122,14 +136,7 @@ abstract class XMLbridge
             $type = $attributes['type'];
             $name = $attributes['name'];
             $class = (string)$attributes['class'];
-            switch ($type) {
-                case "Object":  $object = new $class();
-                                $object->readStructure($element);
-                                $innerArray["{$name}"] = $object;
-                                break;
-                case "Array":   $innerArray["{$name}"] = $this->getArrayStructure($element); break;
-                case "Value":   $innerArray["{$name}"] = (string)trim($element); break;
-            }
+            $innerArray["{$name}"] = $this->readElement($element, $type, $class);
         }
         return $innerArray;
     }
@@ -148,13 +155,7 @@ abstract class XMLbridge
             $type = $attributes['type'];
             $name = $attributes['name'];
             $class = (string)$attributes['class'];
-            switch ($type) {
-                case "Object": $object = new $class();
-                               $object->readStructure($element);
-                               $this->{$name} = $object; break;
-                case "Array":  $this->{$name} = $this->getArrayStructure($element); break;
-                case "Value":  $this->{$name} = (string)trim($element); break;
-            }
+            $this->{$name} = $this->readElement($element, $type, $class);
         }
     }
 
