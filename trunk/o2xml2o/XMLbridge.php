@@ -112,7 +112,9 @@ abstract class XMLbridge
         switch ($type) {
             case "Object":
                 $object = new $class();
-                $object->readStructure($element);
+                if (method_exists($object, "readStructure")) {
+                    $object->readStructure($element);
+                }
                 return $object;
             case "Array":
                 return $this->readArrayStructure($element);
