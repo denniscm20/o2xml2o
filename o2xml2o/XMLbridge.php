@@ -25,27 +25,45 @@ along with o2xml2o.  If not, see <http://www.gnu.org/licenses/>.
  * allows it to import its attributes' values from a previously exported
  * XML file.
  * This class is the XML bridge for your objects!!!
- * @author Dennis Cohn Muroy <dennis.cohn@pucp.edu.pe>
+ * @author Dennis Cohn Muroy
  * @copyright Copyright (c) 2009, Dennis Cohn Muroy
- * @version 0.5
+ * @version 0.8
  * @license http://opensource.org/licenses/gpl-3.0.html GNU Public License 3
  * @package o2xml2o
  * @abstract
  */
 abstract class XMLbridge
 {
+    const OPEN_TAG = "<element name=\"%s\" type=\"%s\" class=\"%s\">\n";
+    const CLOSE_TAG = "</element>\n";
+
     /**
      * Converts an object into a XML Structure
      * @author Dennis Cohn Muroy
      * @access private
-     * @final
-     * @param Object $value Object to be converted to an XML structure
+     * @param Object $object
+     * @param string $attributeName
      */
-    private function objectXML($value)
+    private function printObject($object, $attributeName)
     {
-        $funct = "writeXML"; 
-        if (is_callable(array($value,$funct),true) !== FALSE) {
-            $value->{$funct}(false);
+        $class = get_class($object);
+        $attributes = get_object_vars($object);
+        echo sprintf(self::OPEN_TAG, $attributeName, 'Object', $class);
+        $this->printElements($attributes);
+        echo self::CLOSE_TAG;
+    }
+
+    private function printElements($elements)
+    {
+        foreach ($elements as $key => $value)
+        {
+            if (is_object($value)) {
+                $this->printObject($value, $key);
+            } else if (is_array($value)) {
+                $this->printArray($value, $key);
+            } else {
+                $this->printValue($value, $key);
+            }
         }
     }
 
@@ -55,58 +73,38 @@ abstract class XMLbridge
      * @access private
      * @param Object $value Value to be displayed in a XML node
      */
-    private function valueXML($value)
+    private function printValue($value, $attributeName)
     {
-        print "{$value}\n";
+        $class = gettype($value);
+        echo sprintf(self::OPEN_TAG, $attributeName, 'Value', $class);
+        echo $value;
+        echo self::CLOSE_TAG;
     }
 
     /**
-     * Converts a list of attributes with is assigned values into XML nodes
+     * Converts a list of attributes with its assigned values into XML nodes
      * @author Dennis Cohn Muroy
      * @access private
      * @param mixed $elements List of attributes with its assigned values
      */
-    private function arrayXML($elements)
+    private function printArray($array, $attributeName)
     {
-        foreach($elements as $key => $value) {
-            $type = "";
-            $class = "";
-            if (is_object($value)) {
-                $type = "Object";
-                $class = get_class($value);
-            } else if (is_array($value)) {
-                $type = "Array";
-                $class = "array";
-            } else {
-                $type = "Value";
-                $class = gettype($value);
-            }
-            print "<element name=\"{$key}\" type=\"{$type}\" class=\"{$class}\">\n";
-            $type = $type."XML";
-            $this->{$type}($value);
-            print "</element>";
-        }
+        echo sprintf(self::OPEN_TAG, $attributeName, 'Array', 'array');
+        $this->printElements($array);
+        echo self::CLOSE_TAG;
     }
 
     /**
-     * This is the method that must be called in order to convert a child object
+     * This is the method that must be called in order to export the child object
      * into an XML structure.
      * @author Dennis Cohn Muroy
      * @access public
      * @final
-     * @param bool $writeHeader Indicates if the xml header must be written.
      */
-    public final function writeXML($writeHeader = true)
+    public final function writeXML()
     {
-        $attributes = get_object_vars($this);
-        if ($writeHeader) {
-            header ("content-type: text/xml");
-            print ("<elements>\n");
-        }
-        $this->arrayXML($attributes);
-        if ($writeHeader) {
-            print ("</elements>");
-        }
+        header ("content-type: text/xml");
+        $this->printObject($this, "");
     }
 
     /**
@@ -126,11 +124,11 @@ abstract class XMLbridge
             $class = (string)$attributes['class'];
             switch ($type) {
                 case "Object":  $object = new $class();
-                                $object->readStructure($node->children());
+                                $object->readStructure($element);
                                 $innerArray["{$name}"] = $object;
                                 break;
                 case "Array":   $innerArray["{$name}"] = $this->getArrayStructure($element); break;
-                case "Value":   $innerArray["{$name}"] = (string)$element; break;
+                case "Value":   $innerArray["{$name}"] = (string)trim($element); break;
             }
         }
         return $innerArray;
@@ -149,10 +147,13 @@ abstract class XMLbridge
             $attributes = $element->attributes();
             $type = $attributes['type'];
             $name = $attributes['name'];
+            $class = (string)$attributes['class'];
             switch ($type) {
-                case "Object": $this->{$name}->readStructure($element); break;
-                case "Array": $this->{$name} = $this->getArrayStructure($element); break;
-                case "Value": $this->{$name} = (string)$element; break;
+                case "Object": $object = new $class();
+                               $object->readStructure($element);
+                               $this->{$name} = $object; break;
+                case "Array":  $this->{$name} = $this->getArrayStructure($element); break;
+                case "Value":  $this->{$name} = (string)trim($element); break;
             }
         }
     }
