@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Docs For Class XMLbridge</title>
+<title>Docs For Class XMLserializer</title>
 <link rel="stylesheet" type="text/css" href="../media/style.css">
 </head>
 <body>
@@ -46,8 +46,8 @@
     <td>
       <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
 
-<h1>Class: XMLbridge</h1>
-Source Location: /XMLbridge.php<br /><br />
+<h1>Class: XMLserializer</h1>
+Source Location: /XMLserializer.php<br /><br />
 
 
 <table width="100%" border="0">
@@ -58,7 +58,7 @@ Source Location: /XMLbridge.php<br /><br />
 <div class="description">This class allows any child class to be exported into an XML structure or  allows it to import its attributes' values from a previously exported  XML file.</div><br /><br />
 <h4>Author(s):</h4>
 <ul>
-          <li>Dennis Cohn Muroy</li>
+          <li>Dennis Cohn Muroy &lt;<a href="mailto:dennis.cohn@pucp.edu.pe">dennis.cohn@pucp.edu.pe</a>&gt;</li>
                               </ul>
 
 
@@ -83,23 +83,24 @@ Source Location: /XMLbridge.php<br /><br />
 <td valign="top">
 <h3><a href="#class_consts">Constants</a></h3>
 <ul>
-    <li><a href="../o2xml2o/XMLbridge.html#constCLOSE_TAG">CLOSE_TAG</a></li>
-    <li><a href="../o2xml2o/XMLbridge.html#constOPEN_TAG">OPEN_TAG</a></li>
+    <li><a href="../o2xml2o/XMLserializer.html#constARRAY_KEY">ARRAY_KEY</a></li>
+    <li><a href="../o2xml2o/XMLserializer.html#constCLOSE_TAG">CLOSE_TAG</a></li>
+    <li><a href="../o2xml2o/XMLserializer.html#constOPEN_TAG">OPEN_TAG</a></li>
   </ul>
 </td>
 
 <td valign="top">
 <h3><a href="#class_methods">Methods</a></h3>
 <ul>
-    <li><a href="../o2xml2o/XMLbridge.html#methodprintArray">printArray</a></li>
-    <li><a href="../o2xml2o/XMLbridge.html#methodprintElements">printElements</a></li>
-    <li><a href="../o2xml2o/XMLbridge.html#methodprintObject">printObject</a></li>
-    <li><a href="../o2xml2o/XMLbridge.html#methodprintValue">printValue</a></li>
-    <li><a href="../o2xml2o/XMLbridge.html#methodreadArrayStructure">readArrayStructure</a></li>
-    <li><a href="../o2xml2o/XMLbridge.html#methodreadElement">readElement</a></li>
-    <li><a href="../o2xml2o/XMLbridge.html#methodreadStructure">readStructure</a></li>
-    <li><a href="../o2xml2o/XMLbridge.html#methodreadXML">readXML</a></li>
-    <li><a href="../o2xml2o/XMLbridge.html#methodwriteXML">writeXML</a></li>
+    <li><a href="../o2xml2o/XMLserializer.html#methodprintArray">printArray</a></li>
+    <li><a href="../o2xml2o/XMLserializer.html#methodprintElements">printElements</a></li>
+    <li><a href="../o2xml2o/XMLserializer.html#methodprintObject">printObject</a></li>
+    <li><a href="../o2xml2o/XMLserializer.html#methodprintValue">printValue</a></li>
+    <li><a href="../o2xml2o/XMLserializer.html#methodreadArrayStructure">readArrayStructure</a></li>
+    <li><a href="../o2xml2o/XMLserializer.html#methodreadElement">readElement</a></li>
+    <li><a href="../o2xml2o/XMLserializer.html#methodreadStructure">readStructure</a></li>
+    <li><a href="../o2xml2o/XMLserializer.html#methodreadXML">readXML</a></li>
+    <li><a href="../o2xml2o/XMLserializer.html#methodwriteXML">writeXML</a></li>
   </ul>
 </td>
 
@@ -120,12 +121,12 @@ Source Location: /XMLbridge.php<br /><br />
 <h3>Class Details</h3>
 <div class="tags">
 [line 35]<br />
-This class allows any child class to be exported into an XML structure or  allows it to import its attributes' values from a previously exported  XML file.<br /><br /><p>This class is the XML bridge for your objects!!!</p><br /><br /><br />
+This class allows any child class to be exported into an XML structure or  allows it to import its attributes' values from a previously exported  XML file.<br /><br /><p>This class is the XML (un)serializer for your objects!!!</p><br /><br /><br />
 <h4>Tags:</h4>
 <div class="tags">
 <table border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td><b>author:</b>&nbsp;&nbsp;</td><td>Dennis Cohn Muroy</td>
+    <td><b>author:</b>&nbsp;&nbsp;</td><td>Dennis Cohn Muroy &lt;<a href="mailto:dennis.cohn@pucp.edu.pe">dennis.cohn@pucp.edu.pe</a>&gt;</td>
   </tr>
   <tr>
     <td><b>version:</b>&nbsp;&nbsp;</td><td>0.9</td>
@@ -152,7 +153,7 @@ This class allows any child class to be exported into an XML structure or  allow
 
   <hr />
 	<a name="methodprintArray"></a>
-	<h3>method printArray <span class="smalllinenumber">[line 102]</span></h3>
+	<h3>method printArray <span class="smalllinenumber">[line 104]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -197,7 +198,7 @@ $attributeName)</code>
   </div>
   <hr />
 	<a name="methodprintElements"></a>
-	<h3>method printElements <span class="smalllinenumber">[line 46]</span></h3>
+	<h3>method printElements <span class="smalllinenumber">[line 47]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -236,7 +237,7 @@ $elements)</code>
   </div>
   <hr />
 	<a name="methodprintObject"></a>
-	<h3>method printObject <span class="smalllinenumber">[line 68]</span></h3>
+	<h3>method printObject <span class="smalllinenumber">[line 70]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -281,7 +282,7 @@ $attributeName)</code>
   </div>
   <hr />
 	<a name="methodprintValue"></a>
-	<h3>method printValue <span class="smalllinenumber">[line 85]</span></h3>
+	<h3>method printValue <span class="smalllinenumber">[line 87]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -326,7 +327,7 @@ $attributeName)</code>
   </div>
   <hr />
 	<a name="methodreadArrayStructure"></a>
-	<h3>method readArrayStructure <span class="smalllinenumber">[line 144]</span></h3>
+	<h3>method readArrayStructure <span class="smalllinenumber">[line 146]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -365,7 +366,7 @@ $node)</code>
   </div>
   <hr />
 	<a name="methodreadElement"></a>
-	<h3>method readElement <span class="smalllinenumber">[line 121]</span></h3>
+	<h3>method readElement <span class="smalllinenumber">[line 123]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -419,7 +420,7 @@ $class)</code>
   </div>
   <hr />
 	<a name="methodreadStructure"></a>
-	<h3>method readStructure <span class="smalllinenumber">[line 164]</span></h3>
+	<h3>method readStructure <span class="smalllinenumber">[line 169]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -461,7 +462,7 @@ $node)</code>
   </div>
   <hr />
 	<a name="methodreadXML"></a>
-	<h3>method readXML <span class="smalllinenumber">[line 183]</span></h3>
+	<h3>method readXML <span class="smalllinenumber">[line 188]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -503,7 +504,7 @@ $file)</code>
   </div>
   <hr />
 	<a name="methodwriteXML"></a>
-	<h3>method writeXML <span class="smalllinenumber">[line 203]</span></h3>
+	<h3>method writeXML <span class="smalllinenumber">[line 208]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -538,16 +539,23 @@ $file)</code>
 <a name="class_constss"></a>
 <h3>Class Constants</h3>
 <div class="tags">
+	<a name="constARRAY_KEY"></a>
+	<p></p>
+	<h4>ARRAY_KEY = <span class="value">&nbsp;&quot;index_&quot;</span></h4>
+	<p>[line 39]</p>
+  
+  <br />
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
 	<a name="constCLOSE_TAG"></a>
 	<p></p>
-	<h4>CLOSE_TAG = <span class="value">&nbsp;&quot;&lt;/element&gt;\n&quot;</span></h4>
+	<h4>CLOSE_TAG = <span class="value">&nbsp;&quot;&lt;/%s&gt;\n&quot;</span></h4>
 	<p>[line 38]</p>
   
   <br />
 	<div class="top">[ <a href="#top">Top</a> ]</div><br />
 	<a name="constOPEN_TAG"></a>
 	<p></p>
-	<h4>OPEN_TAG = <span class="value">&nbsp;&quot;&lt;element&nbsp;name=\&quot;%s\&quot;&nbsp;type=\&quot;%s\&quot;&nbsp;class=\&quot;%s\&quot;&gt;\n&quot;</span></h4>
+	<h4>OPEN_TAG = <span class="value">&nbsp;&quot;&lt;%s&nbsp;type=\&quot;%s\&quot;&nbsp;class=\&quot;%s\&quot;&gt;\n&quot;</span></h4>
 	<p>[line 37]</p>
   
   <br />
