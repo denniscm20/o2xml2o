@@ -96,6 +96,8 @@ abstract class XMLbridge
      * @access private
      * @param array $array List of elements to be exported to XML.  These
      * elements can be Objects, arrays or basic datatypes.
+     * @param string $attributeName Name of the attribute where the $value is
+     * assigned.
      */
     private function printArray($array, $attributeName)
     {
