@@ -5,11 +5,9 @@
 This is the list of changes performed in the library code.
 </p>
 <h2>Details</h2>
-<p>
-<b>Version 0.5</b>
+<b>Version 0.9</b>
 <ul>
-<li>_XMLbridge.php_ file added to the project</li>
-<li>_sample.php_ example file added to the project</li>
+<li>TBA</li>
 </ul>
 </p>
 <p>
@@ -18,5 +16,12 @@ This is the list of changes performed in the library code.
 <li>_XMLbridge.php_ file updated.  If an internal object does not have a XMLbridge parent class, then no content will be print in that object's node.</li>
 <li>_XMLserialize.php_ file added to the project. This class makes use of the object name instead of the "elements" word in the XML generated tags.</li>
 <li>_sample2.php_ example file added to the project</li>
+</ul>
+</p>
+<p>
+<b>Version 0.5</b>
+<ul>
+<li>_XMLbridge.php_ file added to the project</li>
+<li>_sample.php_ example file added to the project</li>
 </ul>
 </p>
