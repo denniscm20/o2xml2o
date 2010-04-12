@@ -5,6 +5,7 @@
 This is the list of changes performed in the library code.
 </p>
 <h2>Details</h2>
+<p>
 <b>Version 0.9</b>
 <ul>
 <li>TBA</li>
