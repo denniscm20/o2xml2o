@@ -9,8 +9,8 @@ This is the list of changes performed in the library code.
 <b>Version 0.9</b>
 <ul>
 <li>Developer Documentation generated</li>
-<li>Issue 1 resolved: The objects were not loading correctly if they were elements that were contained by an array</li>
-<li>Issue 2 resolved: An error happened when the developer tried to import from XML an object which extended the XMLbridge class and referenced an object that did not extended that class.</li>
+<li>Issue 1 : The imported object is not equal to the original.</li>
+<li>Issue 2 : Error importing an object, that does not extend the XMLbridge class, from an XML file.</li>
 <li>The code was refactored.</li>
 <li>The code is cleaner and documented.  It is easier to understand.</li>
 <li>The sample files are easier to understand.</li>
