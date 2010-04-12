@@ -25,7 +25,7 @@ along with o2xml2o.  If not, see <http://www.gnu.org/licenses/>.
  * allows it to import its attributes' values from a previously exported
  * XML file.
  * This class is the XML (un)serializer for your objects!!!
- * @author Dennis Cohn Muroy <dennis.cohn@pucp.edu.pe>
+ * @author Dennis Cohn Muroy
  * @copyright Copyright (c) 2010, Dennis Cohn Muroy
  * @version 0.9
  * @license http://opensource.org/licenses/gpl-3.0.html GNU Public License 3
@@ -98,6 +98,8 @@ abstract class XMLserializer
      * @access private
      * @param array $array List of elements to be exported to XML.  These
      * elements can be Objects, arrays or basic datatypes.
+     * @param string $attributeName Name of the attribute where the $value is
+     * assigned.
      */
     private function printArray($array, $attributeName)
     {
