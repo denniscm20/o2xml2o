@@ -1,7 +1,7 @@
 <?php
 
 /************************************************************************
-        XMLbridge - Copyright 2009 Dennis Cohn Muroy
+        XMLbridge - Copyright 2010 Dennis Cohn Muroy
 
 This file is part of o2xml2o.
 
@@ -26,7 +26,7 @@ along with o2xml2o.  If not, see <http://www.gnu.org/licenses/>.
  * XML file.
  * This class is the XML bridge for your objects!!!
  * @author Dennis Cohn Muroy
- * @copyright Copyright (c) 2009, Dennis Cohn Muroy
+ * @copyright Copyright (c) 2010, Dennis Cohn Muroy
  * @version 0.9
  * @license http://opensource.org/licenses/gpl-3.0.html GNU Public License 3
  * @package o2xml2o
@@ -38,21 +38,11 @@ abstract class XMLbridge
     const CLOSE_TAG = "</element>\n";
 
     /**
-     * Converts an object into a XML Structure
+     * Exports a list of elements into XML
      * @author Dennis Cohn Muroy
      * @access private
-     * @param Object $object
-     * @param string $attributeName
+     * @param array $elements List of elements to be exported into XML
      */
-    private function printObject($object, $attributeName)
-    {
-        $class = get_class($object);
-        $attributes = get_object_vars($object);
-        echo sprintf(self::OPEN_TAG, $attributeName, 'Object', $class);
-        $this->printElements($attributes);
-        echo self::CLOSE_TAG;
-    }
-
     private function printElements($elements)
     {
         foreach ($elements as $key => $value)
@@ -68,10 +58,29 @@ abstract class XMLbridge
     }
 
     /**
+     * Exports an object into a XML Structure
+     * @author Dennis Cohn Muroy
+     * @access private
+     * @param Object $object Object to be exported to XML
+     * @param string $attributeName Name of the attribute where the $object is
+     * assigned.
+     */
+    private function printObject($object, $attributeName)
+    {
+        $class = get_class($object);
+        $attributes = get_object_vars($object);
+        echo sprintf(self::OPEN_TAG, $attributeName, 'Object', $class);
+        $this->printElements($attributes);
+        echo self::CLOSE_TAG;
+    }
+
+    /**
      * Writes the value of a XML node.
      * @author Dennis Cohn Muroy
      * @access private
-     * @param Object $value Value to be displayed in a XML node
+     * @param string|integer|boolean $value Value to be exported to a XML node
+     * @param string $attributeName Name of the attribute where the $value is
+     * assigned.
      */
     private function printValue($value, $attributeName)
     {
@@ -82,10 +91,11 @@ abstract class XMLbridge
     }
 
     /**
-     * Converts a list of attributes with its assigned values into XML nodes
+     * Exports a list of elements to XML
      * @author Dennis Cohn Muroy
      * @access private
-     * @param mixed $elements List of attributes with its assigned values
+     * @param array $array List of elements to be exported to XML.  These
+     * elements can be Objects, arrays or basic datatypes.
      */
     private function printArray($array, $attributeName)
     {
@@ -95,18 +105,17 @@ abstract class XMLbridge
     }
 
     /**
-     * This is the method that must be called in order to export the child object
-     * into an XML structure.
+     * Returns the value that will be assigned to the object attribute
      * @author Dennis Cohn Muroy
-     * @access public
-     * @final
+     * @access private
+     * @param mixed $element Element that will be imported from XML into an
+     * Object, Array or Basic Datatype variable.
+     * @param string $type Indicates if the $element is an Object, an Array or
+     * a basic datatype.
+     * @param string $class Class of the object that was previously exported
+     * into XML.
+     * @return mixed Value to be assigned to an object attribute.
      */
-    public final function writeXML()
-    {
-        header ("content-type: text/xml");
-        $this->printObject($this, "");
-    }
-
     private function readElement($element, $type, $class)
     {
         switch ($type) {
@@ -163,7 +172,7 @@ abstract class XMLbridge
 
     /**
      * This is the method that must be called in order to convert an XML
-     * structure into an object.
+     * structure into an object that extends the XMLbridge class.
      * @author Dennis Cohn Muroy
      * @access public
      * @final
@@ -180,6 +189,19 @@ abstract class XMLbridge
         }
         $xml = new SimpleXMLElement($file, NULL, TRUE);
         $this->readStructure($xml);
+    }
+
+    /**
+     * This is the method that must be called in order to export the child object
+     * into an XML structure.
+     * @author Dennis Cohn Muroy
+     * @access public
+     * @final
+     */
+    public final function writeXML()
+    {
+        header ("content-type: text/xml");
+        $this->printObject($this, "");
     }
 }
 
