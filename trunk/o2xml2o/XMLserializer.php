@@ -1,7 +1,7 @@
 <?php
 
 /************************************************************************
-        XMLserializer - Copyright 2009 Dennis Cohn Muroy
+        XMLserializer - Copyright 2010 Dennis Cohn Muroy
 
 This file is part of o2xml2o.
 
@@ -36,6 +36,7 @@ abstract class XMLserializer
 {
     const OPEN_TAG = "<%s type=\"%s\" class=\"%s\">\n";
     const CLOSE_TAG = "</%s>\n";
+    const ARRAY_KEY = "index_";
 
     /**
      * Exports a list of elements into XML
@@ -47,7 +48,7 @@ abstract class XMLserializer
     {
         foreach ($elements as $key => $value)
         {
-            $keyTag = is_numeric($key)?"index_".$key:$key;
+            $keyTag = is_numeric($key)?self::ARRAY_KEY.$key:$key;
             if (is_object($value)) {
                 $this->printObject($value, $keyTag);
             } else if (is_array($value)) {
@@ -147,10 +148,9 @@ abstract class XMLserializer
             $attributes = $element->attributes();
             $type = $attributes['type'];
             $name = $element->getName();
-            /**
-             * @todo It must replace only the first occurrence
-             */
-            $name = str_replace("index_","",$name);
+            if (strpos($name, self::ARRAY_KEY) === 0) {
+                $name = substr_replace($name, "", 0, strlen(self::ARRAY_KEY));
+            }
             $class = (string)$attributes['class'];
             $innerArray["{$name}"] = $this->readElement($element, $type, $class);
         }
